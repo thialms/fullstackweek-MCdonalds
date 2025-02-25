@@ -33,6 +33,13 @@ const RestaurantCategories = ({ restaurant }: RestaurantCategoriesProps) => {
       return selectedCategory.id === category.id ? "default" : "secondary"; 
   };
 
+  const hourNow = new Date().getHours();
+  const openingHour = 10;
+  const closingHour = 22;
+  const isOpen = hourNow >= openingHour && hourNow < closingHour;
+  const messageHour = isOpen ? "Aberto!" : "Fechado!";
+  const hourMessageClass = isOpen ? "text-green-500" : "text-red-500";
+
   return (
     <div className="relative z-50 mt-[-1.5rem] rounded-t-3xl bg-white">
       <div className="p-5">
@@ -48,9 +55,9 @@ const RestaurantCategories = ({ restaurant }: RestaurantCategoriesProps) => {
             <p className="text-xs opacity-55">{restaurant.description}</p>
           </div>
         </div>
-        <div className="mt-3 flex items-center gap-1 text-xs text-green-500">
+        <div className={`mt-3 flex items-center gap-1 text-xs ${hourMessageClass}`}>
           <ClockIcon size={12} />
-          <p>Aberto!</p>
+          <p>{messageHour}</p> 
         </div>
       </div>
 
